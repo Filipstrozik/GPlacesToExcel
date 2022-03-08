@@ -1,3 +1,4 @@
+from lib2to3.pgen2 import driver
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -16,11 +17,12 @@ root = tk.Tk()
 canvas = tk.Canvas(root, width=400, height=200)
 
 
+driver = webdriver.Firefox()
 
 url = "https://www.google.com/maps/@51.0611479,17.0123413,13z?hl=pl"
 
 
-driver = webdriver.Firefox(service= Service("E:\Download\geckodriver-v0.30.0-win64"))
+#driver = webdriver.Firefox(service= Service("E:\Download\geckodriver-v0.30.0-win64"))
 #driver = webdriver.Firefox(executable_path="E:\Download\geckodriver-v0.29.1-win64\geckodriver.exe")
 #service= Service("E:\Download\geckodriver-v0.29.1-win64\geckodriver.exe")
 wait = WebDriverWait(driver, 5)

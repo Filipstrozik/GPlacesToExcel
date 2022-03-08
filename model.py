@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import presence_of_all_elements_located
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import time
 import string
 import openpyxl
@@ -12,15 +12,21 @@ import os
 
 class Model:
 
-    _options = Options()
-    _options.headless = False
+    options = FirefoxOptions()
+    options.browser_version = '92'
+    options.platform_name = 'Windows 10'
+    cloud_options = {}
+    #cloud_options['build'] = my_test_build
+    #cloud_options['name'] = my_test_name
+    options.set_capability('cloud:options', cloud_options)
     
     url = "https://www.google.com/maps/@51.0611479,17.0123413,13z?hl=pl"
     driver = None
     searchtext = ""
 
     def __init__(self):
-        self.driver = webdriver.Firefox(options=self._options,executable_path="E:\Download\geckodriver-v0.29.1-win64\geckodriver.exe")
+        #self.driver = webdriver.Firefox(options=self._options, executable_path="E:\Download\geckodriver-v0.29.1-win64\geckodriver.exe")
+        self.driver = webdriver.Firefox()
         wait = WebDriverWait(self.driver, 5)
         self.driver.get(self.url)
         time.sleep(3)
@@ -36,7 +42,7 @@ class Model:
         result = False
         print(f'gettin text to search from view to model: {text}')
         self.searchtext = text
-        searchbox = self.driver.find_element_by_id("searchboxinput")
+        searchbox = self.driver.find_element(By.ID, value='searchboxinput')
         #searchtext = input("") # tutaj terzeba gui
         searchbox.send_keys(self.searchtext)
         searchbox.send_keys(Keys.ENTER)
@@ -66,6 +72,7 @@ class Model:
                 print("finding getting info ...")
                 
                 info = self.driver.find_elements_by_class_name("CsEnBe")
+                #jak nie ma opniii to tego nie ma i wywala błąd
                 starrs = self.driver.find_element_by_class_name("section-star-array")
                 infos_to_exl = [names.pop(0)," "," "," ",starrs.get_attribute("aria-label").replace('-gwiazdkowy ','')]
 

@@ -5,7 +5,7 @@ from view import View
 
 class Controller:
     def __init__(self):
-        self.model = Model
+        self.model = Model()
         self.view = View(self)
 
 
@@ -15,7 +15,7 @@ class Controller:
 
     def on_button_click(self):
         print(f'typed {self.view.string_search.get()} sentence')
-        result = self.model.search(self.model, self.view.string_search.get())
+        result = self.model.search(self.view.string_search.get())
         if result:
             print("Data collected")
         else:
