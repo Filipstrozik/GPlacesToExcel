@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import presence_of_all_elements_located
 from selenium.common.exceptions import NoSuchElementException
+
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import time
 import string
@@ -12,13 +13,13 @@ import os
 
 class Model:
 
-    options = FirefoxOptions()
-    options.browser_version = '92'
-    options.platform_name = 'Windows 10'
-    cloud_options = {}
+    #options = FirefoxOptions()
+    #options.browser_version = '92'
+    #options.platform_name = 'Windows 10'
+    #cloud_options = {}
     #cloud_options['build'] = my_test_build
     #cloud_options['name'] = my_test_name
-    options.set_capability('cloud:options', cloud_options)
+    #options.set_capability('cloud:options', cloud_options)
     
     url = "https://www.google.com/maps/@51.0611479,17.0123413,13z?hl=pl"
     driver = None
@@ -73,8 +74,14 @@ class Model:
                 
                 info = self.driver.find_elements_by_class_name("CsEnBe")
                 #jak nie ma opniii to tego nie ma i wywala błąd
-                starrs = self.driver.find_element_by_class_name("section-star-array")
-                infos_to_exl = [names.pop(0)," "," "," ",starrs.get_attribute("aria-label").replace('-gwiazdkowy ','')]
+                try:
+                    starrs = self.driver.find_element_by_class_name("section-star-array")
+                    infos_to_exl = [names.pop(0)," "," "," ",starrs.get_attribute("aria-label").replace('-gwiazdkowy ','')]
+                except NoSuchElementException as exception:
+                    print('The objects does not have a starrs section.')
+                    infos_to_exl = [names.pop(0)," "," "," ",'nie ma']
+               
+                
 
 
                 infos_to_edit = [] # lista informacji
