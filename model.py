@@ -20,7 +20,7 @@ class Model:
     #cloud_options['build'] = my_test_build
     #cloud_options['name'] = my_test_name
     #options.set_capability('cloud:options', cloud_options)
-    
+
     url = "https://www.google.com/maps/@51.0611479,17.0123413,13z?hl=pl"
     driver = None
     searchtext = ""
@@ -28,17 +28,19 @@ class Model:
     def __init__(self):
         #self.driver = webdriver.Firefox(options=self._options, executable_path="E:\Download\geckodriver-v0.29.1-win64\geckodriver.exe")
         self.driver = webdriver.Firefox()
-        wait = WebDriverWait(self.driver, 5)
+        wait = WebDriverWait(self.driver, 1)
         self.driver.get(self.url)
-        time.sleep(3)
-        print("accepting cookies...")
-        self.driver.find_element_by_xpath("/html/body/c-wiz/div/div/div/div[2]/div[1]/div[4]/form/div[1]/div").click()
-        time.sleep(4)
-    
+        print("click deny cookies...")
+
+
+        # time.sleep(3)
+        # print("accepting cookies...")
+        # self.driver.find_element_by_class_name("VfPpkd-RLmnJb").click()
+        # time.sleep(2)
+
     def main(self):
         pass
-
-
+    
     def search(self, text):
         result = False
         print(f'gettin text to search from view to model: {text}')
@@ -110,7 +112,8 @@ class Model:
             i+=1
             time.sleep(5)
             print("next page..")
-            self.driver.find_element_by_id("ppdPk-Ej1Yeb-LgbsSe-tJiF1e").click()
+            # self.driver.find_element_by_id("ppdPk-Ej1Yeb-LgbsSe-tJiF1e").click()
+            # self.driver.execute_script("window.scrollTo(0, 1080)") 
             time.sleep(5)
 
         self.driver.quit()

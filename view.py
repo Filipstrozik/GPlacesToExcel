@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import Button, ttk
 
 
 class View(tk.Tk):
@@ -11,7 +11,6 @@ class View(tk.Tk):
     def __init__(self,controller):
         super().__init__()#initialize object which we are inherit from
         self.controller = controller
-
         self.title('ScrapeData 1.0')
         self.string_search = tk.StringVar()
         self._make_main_frame()
@@ -43,3 +42,4 @@ class View(tk.Tk):
             )
         )
         btn.pack(side='right')
+    
